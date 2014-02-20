@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--Language=SQLite-->
+    <!--language=SQLite-->
     <string name="insert_user">
         INSERT INTO users (name, age) VALUES (?, ?);
     </string>
 
-    <!--Language=SQLite-->
+    <!--language=SQLite-->
     <string name="update_user_name_by_age">
         UPDATE users SET name = ?
         WHERE age = ?;
     </string>
 
-    <!--Language=SQLite-->
+    <!--language=SQLite-->
     <string name="select_users_by_age">
         SELECT
             *
@@ -20,24 +20,24 @@
         WHERE age = ?;
     </string>
 
-    <!--Language=SQLite-->
+    <!--language=SQLite-->
     <string name="select_all_users">
         SELECT
             *
         FROM users;
     </string>
 
-    <!--Language=SQLite-->
+    <!--language=SQLite-->
     <string name="drop_table_users">
         DROP TABLE IF EXISTS users;
     </string>
 
-    <!--Language=SQLite-->
+    <!--language=SQLite-->
     <string name="delete_all_users">
         DELETE FROM users;
     </string>
 
-    <!--Language=SQLite-->
+    <!--language=SQLite-->
     <string name="create_table_user">
         CREATE TABLE IF NOT EXISTS users (
             id   INTEGER PRIMARY KEY AUTOINCREMENT,

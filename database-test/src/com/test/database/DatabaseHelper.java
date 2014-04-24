@@ -1,5 +1,7 @@
-package com.test;
+package com.test.database;
 
+
+import com.test.database.dao.UserDAO;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

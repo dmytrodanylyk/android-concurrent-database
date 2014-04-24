@@ -1,4 +1,4 @@
-package com.dd.utils;
+package com.test.utils;
 
 
 import com.dd.database.BuildConfig;

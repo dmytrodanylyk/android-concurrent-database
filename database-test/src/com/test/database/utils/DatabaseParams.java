@@ -1,4 +1,4 @@
-package com.dd.database.utils;
+package com.test.database.utils;
 
 import android.content.ContentValues;
 

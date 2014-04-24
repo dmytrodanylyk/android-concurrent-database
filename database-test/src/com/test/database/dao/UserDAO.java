@@ -1,28 +1,23 @@
-package com.test;
+package com.test.database.dao;
 
 
 import com.dd.database.R;
+import com.test.User;
+import com.test.database.Database;
+import com.test.database.utils.CursorParser;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
 
-    interface Table {
-
-        String COLUMN_ID = "id";
-        String COLUMN_NAME = "name";
-        String COLUMN_AGE = "age";
-    }
-
-    private SQLiteDatabase mDatabase;
+    private Database mDatabase;
     private Context mContext;
 
-    public UserDAO(SQLiteDatabase database, Context context) {
+    public UserDAO(Database database, Context context) {
         mDatabase = database;
         mContext = context;
     }
@@ -40,13 +35,13 @@ public class UserDAO {
     }
 
     public void insert(List<User> userList) {
-
+        String sql = mContext.getString(R.string.insert_user);
         for (User user : userList) {
             String[] bindArgs = {
                     user.getName(),
                     String.valueOf(user.getAge())
             };
-            mDatabase.execSQL(mContext.getString(R.string.insert_user), bindArgs);
+            mDatabase.execSQL(sql, bindArgs);
         }
     }
 
@@ -82,23 +77,19 @@ public class UserDAO {
 
     public List<User> selectAll() {
         Cursor cursor = mDatabase.rawQuery(mContext.getString(R.string.select_all_users), null);
-
         List<User> dataList = manageCursor(cursor);
-
         closeCursor(cursor);
 
         return dataList;
     }
 
     protected User cursorToData(Cursor cursor) {
-        int idIndex = cursor.getColumnIndex(Table.COLUMN_ID);
-        int nameIndex = cursor.getColumnIndex(Table.COLUMN_NAME);
-        int ageIndex = cursor.getColumnIndex(Table.COLUMN_AGE);
+        CursorParser parser = new CursorParser(cursor);
 
         User user = new User();
-        user.setId(cursor.getLong(idIndex));
-        user.setAge(cursor.getInt(ageIndex));
-        user.setName(cursor.getString(nameIndex));
+        user.setId(parser.readLong());
+        user.setAge(parser.readInt());
+        user.setName(parser.readString());
 
         return user;
     }

@@ -1,13 +1,13 @@
 package com.test.database.dao;
 
 
+import android.content.Context;
+import android.database.Cursor;
 import com.dd.database.R;
 import com.test.User;
 import com.test.database.Database;
+import com.test.database.utils.ArrayUtils;
 import com.test.database.utils.CursorParser;
-
-import android.content.Context;
-import android.database.Cursor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,35 +36,25 @@ public class UserDAO {
 
     public void insert(List<User> userList) {
         String sql = mContext.getString(R.string.insert_user);
+        String[] bindArgs;
         for (User user : userList) {
-            String[] bindArgs = {
-                    user.getName(),
-                    String.valueOf(user.getAge())
-            };
+            bindArgs = ArrayUtils.build(user.getName(), user.getAge());
             mDatabase.execSQL(sql, bindArgs);
         }
     }
 
     public void insert(User user) {
-        String[] bindArgs = {
-                user.getName(),
-                String.valueOf(user.getAge())
-        };
+        String[] bindArgs = ArrayUtils.build(user.getName(), user.getAge());
         mDatabase.execSQL(mContext.getString(R.string.insert_user), bindArgs);
     }
 
     public void updateNameByAge(String name, int age) {
-        String[] bindArgs = {
-                name,
-                String.valueOf(age)
-        };
+        String[] bindArgs = ArrayUtils.build(name, age);
         mDatabase.execSQL(mContext.getString(R.string.update_user_name_by_age), bindArgs);
     }
 
     public List<User> selectByAge(int age) {
-        String[] selectionArgs = {
-                String.valueOf(age)
-        };
+        String[] selectionArgs = ArrayUtils.build(age);
         String query = mContext.getString(R.string.select_users_by_age);
         Cursor cursor = mDatabase.rawQuery(query, selectionArgs);
 
